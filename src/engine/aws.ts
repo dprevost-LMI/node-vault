@@ -203,7 +203,6 @@ export class Aws extends ApiSector {
       schema: {
         path: z.object({
           name: z.string(),
-          isSTS: z.boolean().optional()
         }),
         searchParams: z.object({
           role_arn: z.string().optional(),
@@ -228,10 +227,9 @@ export class Aws extends ApiSector {
       client: this.client,
       schema: {
         path: z.object({
-          name: z.string(),
-          isSTS: z.boolean().optional()
+          name: z.string().trim().min(1, { message: "Non empty name is required!" }),
         }),
-        searchParams: z.object({
+        body: z.object({
           role_arn: z.string().optional(),
           role_session_name: z.string().optional(),
           ttl: z.string().optional(),
